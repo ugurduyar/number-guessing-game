@@ -1,6 +1,5 @@
 let game = { min: 1, max: 10 };
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("ready");
   game.output = document.querySelector(".output");
   game.message = document.querySelector(".message");
   game.guessInput = document.querySelector("input");
@@ -9,12 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function init() {
-  let tempMes =
-    "Welcome to the number guessing game! Guess a number from " +
-    game.min +
-    " to " +
-    game.max;
+  let tempMes = "Guess a number from " + game.min + " to " + game.max;
   message(tempMes, "black");
+}
+
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1));
 }
 
 function message(mes, clr) {
