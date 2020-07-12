@@ -10,7 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function guessValue() {
-  console.log("your guess is " + game.guessInput.value);
+  let tempGuess = game.guessInput.value;
+  tempGuess = parseInt(tempGuess);
+  if (isNaN(tempGuess)) {
+    message("Please enter only digits", "red");
+  } else if (tempGuess === game.num) {
+    message("Correct!", "green");
+  } else {
+    message("Not Correct it was " + game.num, "white");
+  }
+  console.log(tempGuess);
 }
 
 function init() {
