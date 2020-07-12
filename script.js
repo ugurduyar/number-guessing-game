@@ -16,10 +16,16 @@ function guessValue() {
     message("Please enter only digits", "red");
   } else if (tempGuess === game.num) {
     message("Correct!", "green");
+    game.guessInput.style.borderColor = "green";
   } else {
-    message("Not Correct it was " + game.num, "white");
+    let holder =
+      tempGuess > game.num
+        ? { m: "blue", m: "Was Lower" }
+        : { m: "purple", m: "Was Higher" };
+    message(holder.m, holder.c);
+    game.guessInput.style.borderColor = holder.c;
   }
-  console.log(tempGuess);
+  console.log(game.num);
 }
 
 function init() {
