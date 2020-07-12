@@ -1,6 +1,9 @@
-let game = { min: 1, max: 10 };
-
+let game = {
+  min: 1,
+  max: 10,
+};
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("Ready");
   game.output = document.querySelector(".output");
   game.message = document.querySelector(".message");
   game.guessInput = document.querySelector("input");
@@ -10,42 +13,63 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function guessValue() {
-  game.guesses++;
-  let tempGuess = game.guessInput.value;
-  tempGuess = parseInt(tempGuess);
-  if (isNaN(tempGuess)) {
-    message("Please enter only digits", "red");
-  } else if (tempGuess === game.num) {
-    message("Correct! You guessed it at " + game.guesses + " tries", "green");
-    game.guessInput.style.borderColor = "green";
-    gameOver();
+  if (game.btn.classList.contains("replay")) {
+    init();
+    game.btn.innerHTML = "Guess";
+    game.guessInput.style.display = "block";
+    game.btn.classList.remove("replay");
   } else {
-    let holder =
-      tempGuess > game.num
-        ? { m: "blue", m: "Was Lower" }
-        : { m: "purple", m: "Was Higher" };
-    message(holder.m, holder.c);
-    game.guessInput.style.borderColor = holder.c;
+    game.guesses++;
+    let tempGuess = game.guessInput.value;
+    game.guessInput.value = "";
+    tempGuess = parseInt(tempGuess);
+    if (isNaN(tempGuess)) {
+      message("Please enter only Digits", "red");
+    } else if (tempGuess === game.num) {
+      message(
+        "Correct guess of " + game.num + " in " + game.guesses + " guesses",
+        "green"
+      );
+      gameOver();
+    } else {
+      let holder =
+        tempGuess > game.num
+          ? {
+              c: "blue",
+              m: "Was Lower",
+            }
+          : {
+              c: "purple",
+              m: "Was Higher",
+            };
+      message(holder.m, holder.c);
+    }
+    console.log(game.num);
   }
-  console.log(game.num);
 }
 
-function gameOver() {}
+function gameOver() {
+  game.btn.innerHTML = "Restart Game";
+  game.guessInput.style.display = "none";
+  game.btn.classList.add("replay");
+}
 
 function init() {
   game.guesses = 0;
-  game.num = randomNumber(game.min, game.max);
-  let tempMes = "Guess a number from " + game.min + " to " + game.max;
-  message(tempMes, "yellow");
+  game.num = ranNumber(game.min, game.max);
+  let tempMes =
+    "Welcome to the game.  Guess a number from " + game.min + " to " + game.max;
+  message(tempMes, "blue");
 }
 
-// This function creates a random number depending on min and max values that given
-function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1));
+function ranNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-// This function creates a message with a color and puts it into html code
 function message(mes, clr) {
   game.message.innerHTML = mes;
   game.message.style.color = clr || "black";
+  game.guessInput.style.borderColor = clr || "black";
+  game.btn.style.backgroundColor = clr || "black";
+  game.btn.style.color = "white";
 }
