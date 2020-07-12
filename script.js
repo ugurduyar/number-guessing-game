@@ -44,7 +44,6 @@ function guessValue() {
             };
       message(holder.m, holder.c);
     }
-    console.log(game.num);
   }
 }
 
@@ -57,8 +56,7 @@ function gameOver() {
 function init() {
   game.guesses = 0;
   game.num = ranNumber(game.min, game.max);
-  let tempMes =
-    "Welcome to the game.  Guess a number from " + game.min + " to " + game.max;
+  let tempMes = "Guess a number from " + game.min + " to " + game.max;
   message(tempMes, "blue");
 }
 
