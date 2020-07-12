@@ -10,13 +10,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function guessValue() {
+  game.guesses++;
   let tempGuess = game.guessInput.value;
   tempGuess = parseInt(tempGuess);
   if (isNaN(tempGuess)) {
     message("Please enter only digits", "red");
   } else if (tempGuess === game.num) {
-    message("Correct!", "green");
+    message("Correct! You guessed it at " + game.guesses + " tries", "green");
     game.guessInput.style.borderColor = "green";
+    gameOver();
   } else {
     let holder =
       tempGuess > game.num
@@ -28,7 +30,10 @@ function guessValue() {
   console.log(game.num);
 }
 
+function gameOver() {}
+
 function init() {
+  game.guesses = 0;
   game.num = randomNumber(game.min, game.max);
   let tempMes = "Guess a number from " + game.min + " to " + game.max;
   message(tempMes, "yellow");
